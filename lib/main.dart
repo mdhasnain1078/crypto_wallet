@@ -1,4 +1,6 @@
+import 'package:dapp/provider/walletServices.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Screen/homePage.dart';
 
 
@@ -11,9 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+    return MultiProvider(
+      providers: [
+      ChangeNotifierProvider(create: (context)=> WalletService())
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MyHomePage(),
+      ),
     );
   }
 }
