@@ -34,55 +34,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-
-  // Future<DeployedContract> loadContract()async{
-  //   String abi = await rootBundle.loadString("assets/abi.json");
-  //   String contractAddress = "0xd9145CCE52D386f254917e481eB44e9943F39138";
-  //   final contract = DeployedContract(ContractAbi.fromJson(abi, "PkCoin"), EthereumAddress.fromHex(contractAddress));
-  //   return contract;
-  // }
-
-  // Future<List<dynamic>> query(String functionName , List<dynamic> args) async{
-  //   final contract = await loadContract();
-  //   final ethfunction = contract.function(functionName);
-  //   final result = await ethClient!.call(contract: contract, function: ethfunction, params: args);
-  //   return result;
-  // } 
-
-  // Future<void> getBalance(String targetAddress) async{
-  //   EthereumAddress address = EthereumAddress.fromHex(targetAddress);
-  //   List<dynamic> result = await query("getBalance", []);
-  //   myData = result[0];
-  //   data = true;
-  //   setState(() {
-      
-  //   });
-  // }
-
-  // Future<String> submit(String functionName, List<dynamic> args) async{
-  //   EthPrivateKey credentials = EthPrivateKey.fromHex("5f67ca6bcb667e5e19b32869114e9787d15002de9ce5a9064bd1f39eecf2220e");
-  //   DeployedContract contract = await loadContract();
-  //   final ethfunction = contract.function(functionName);
-  //   final result = await ethClient!.sendTransaction(credentials, Transaction.callContract(contract: contract, function: ethfunction, parameters: args), fetchChainIdFromNetworkId: true);
-  //   return result;
-  // }
-
-  // Future<String> sendCoin() async{
-  //   var bigAmount = BigInt.from(myAmount);
-  //   var response = await submit("depositBalance", [bigAmount]);
-  //   print("deposit");
-  //   txHash = response;
-  //   return response;
-  // }
-
-  // Future<String> widrawCoin() async{
-  //   var bigAmount = BigInt.from(myAmount);
-  //   var response = await submit("widrawBalance", [bigAmount]);
-  //   txHash = response;
-  //   return response;
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,8 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                onPressed: () {},
-                // sendCoin(),
+                onPressed: () async{
+                await Provider.of<WalletService>(context, listen: false).sendCoin(myAmount, ethClient!);},
+                
                 icon: const Icon(Icons.call_made_outlined),
                 label: "Deposit".text.white.make()).h(50),
                 ElevatedButton.icon(
@@ -139,8 +91,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 backgroundColor: Colors.red,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10))),
-                onPressed: (){},
-                // widrawCoin(),
+                onPressed: () async{
+                await Provider.of<WalletService>(context, listen: false).widrawCoin(myAmount, ethClient!);},
                 icon: const Icon(Icons.call_received_outlined),
                 label: "Withdraw".text.white.make()).h(50)
           ],
