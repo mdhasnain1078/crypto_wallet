@@ -46,20 +46,20 @@ class WalletService with ChangeNotifier{
     return result;
   }
 
-//   Future<String> sendCoin() async{
-//     var bigAmount = BigInt.from(myAmount);
-//     var response = await submit("depositBalance", [bigAmount]);
-//     print("deposit");
-//     txHash = response;
-//     return response;
-//   }
+  Future<String> sendCoin() async{
+    var bigAmount = BigInt.from(myAmount);
+    var response = await submit("depositBalance", [bigAmount]);
+    print("deposit");
+    txHash = response;
+    return response;
+  }
 
-//   Future<String> widrawCoin() async{
-//     var bigAmount = BigInt.from(myAmount);
-//     var response = await submit("widrawBalance", [bigAmount]);
-//     txHash = response;
+  Future<String> widrawCoin() async{
+    var bigAmount = BigInt.from(myAmount);
+    var response = await submit("widrawBalance", [bigAmount]);
+    txHash = response;
 
-//     return response;
-//   }
+    return response;
+  }
   
 }
